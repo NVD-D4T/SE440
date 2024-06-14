@@ -24,17 +24,22 @@ public class Player : MonoBehaviour
             _rb.AddForce(force, ForceMode.VelocityChange);
         }
     }
+
+
     private void OnCollisionEnter(Collision other) 
     {
-       if(other.gameObject.tag.Equals("obstacle")){
-        Debug.Log("Player collided with " + other.gameObject.name); 
-        Debug.Log("Player collided with force" + other.impulse);
-        Debug.Log("Player collided with relativeVelocity velocity " + other.relativeVelocity);
-        Debug.Log("Player collided with contact point " + other.contacts[0].point);
+       if(other.gameObject.tag.Equals("obstacle"))
+       {
+            Return(other.gameObject);    
        }
-        
-    
     }
+
+
+    private void Return(GameObject obj)
+    {
+        ObjectPool.Instance.ReturnOne(obj);
+    }
+
 
     private void OnTriggerEnter(Collider other) {
         other.gameObject.SetActive(false);
